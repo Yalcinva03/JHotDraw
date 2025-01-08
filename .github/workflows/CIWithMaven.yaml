@@ -1,0 +1,29 @@
+name: Java CI with Maven
+
+on:
+  push:
+    branches: [ "feature/path-editing" ]
+  pull_request:
+    branches: [ "feature/path-editing" ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout JHotDraw
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: '0'
+      - name: Set up JDK
+        uses: actions/setup-java@v4
+        with:
+          java-version: '11'
+          distribution: 'temurin'
+          cache: maven
+
+      - name: Build with Maven
+        env:
+          USER_NAME: ${{ github.actor }}
+          TOKEN: ${{ github.token }}
+        run: mvn clean compile -Dmaven.compiler.showWarnings=false
