@@ -70,6 +70,10 @@ public class DefaultApplicationModel
      */
     @Override
     public void initView(Application a, View v) {
+        /**
+         * Does nothing. Superclass implements this method instead.
+         * Callers call super method instead.
+         */
     }
 
     /**
