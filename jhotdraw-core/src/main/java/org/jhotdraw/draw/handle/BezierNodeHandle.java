@@ -9,6 +9,7 @@ package org.jhotdraw.draw.handle;
 
 import org.jhotdraw.draw.figure.Figure;
 import org.jhotdraw.draw.figure.BezierFigure;
+
 import java.awt.*;
 import java.awt.event.*;
 import java.awt.geom.*;
@@ -16,8 +17,11 @@ import java.util.*;
 import javax.swing.undo.AbstractUndoableEdit;
 import javax.swing.undo.CannotRedoException;
 import javax.swing.undo.CannotUndoException;
+
 import org.jhotdraw.draw.*;
+
 import static org.jhotdraw.draw.AttributeKeys.*;
+
 import org.jhotdraw.draw.event.BezierNodeEdit;
 import org.jhotdraw.geom.BezierPath;
 import org.jhotdraw.undo.CompositeEdit;
@@ -25,7 +29,6 @@ import org.jhotdraw.util.*;
 
 /**
  * A {@link Handle} which allows to interactively change a node of a bezier path.
- *
  *
  * @author Werner Randelshofer
  * @version $Id$
@@ -150,21 +153,9 @@ public class BezierNodeHandle extends AbstractHandle {
             }
         }
         BezierPath.Node n = figure.getNode(index);
-        //fireAreaInvalidated(n);
         n.moveTo(p);
-        //fireAreaInvalidated(n);
         figure.setNode(index, n);
         figure.changed();
-    }
-
-    private void fireAreaInvalidated(BezierPath.Node v) {
-        Rectangle2D.Double dr = new Rectangle2D.Double(v.x[0], v.y[0], 0, 0);
-        for (int i = 1; i < 3; i++) {
-            dr.add(v.x[i], v.y[i]);
-        }
-        Rectangle vr = view.drawingToView(dr);
-        vr.grow(getHandlesize(), getHandlesize());
-        fireAreaInvalidated(vr);
     }
 
     @Override
